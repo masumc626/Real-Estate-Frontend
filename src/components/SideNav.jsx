@@ -7,6 +7,7 @@ import ReceivedIntrestLogo from '../utils/ReceivedIntrestLogo'
 import SentIntrestLogo from '../utils/SentIntrestLogo'
 import PropertyViews from '../utils/PropertyViews'
 import TariffPlan from '../utils/TariffPlan'
+import TopNav from './TopNav'
 
 export default function SideNav() {
   const array = [
@@ -43,17 +44,23 @@ export default function SideNav() {
   ]
 
   return (
+    // <div className='main-container green-bg'>
+    <>
     <div className='green-bg side-nav'>
       <div className='logo'><BrandLogo /></div>
+      <div className="options-container">
       {
         array.map((item) => {
           return (
-            <div className='options'>
-              {item.logo}<p className={`non-selec-clr ${item.style}`}>{item.text}</p>
+            <div key={item.text} className='options' title={item.text}>
+              {item.logo}<p className={`non-selec-clr hidden-text ${item.style}`}>{item.text}</p>
             </div>
           )
         })
       }
+      </div>
     </div>
+    </>
+    // </div>
   )
 }
