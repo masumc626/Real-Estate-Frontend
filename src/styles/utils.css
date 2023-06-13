@@ -90,3 +90,7 @@ svg{
 .mb{
     margin-bottom: 30px;
 }
+
+svg:hover{
+    fill: #2289FF;
+}
