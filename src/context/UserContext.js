@@ -6,8 +6,9 @@ const UserContext = createContext({});
 
 const UserContextProvider = ({ children }) => {
 
-    const [login, setLogin] = useState(false);
-    // console.log(login)
+    const [login, setLogin] = useState(true);
+    const [userData, setUserData] = useState({});
+    const [id, setId] = useState();
     const [data, setData] = useState([
         {
             _id: 12345,
@@ -97,6 +98,14 @@ const UserContextProvider = ({ children }) => {
         data: data,
         updateDataRefresh: () => {
             setDataRefresh(!dataRefresh)
+        },
+        userData: userData,
+        updateUserData: (data) => {
+            setUserData(data);
+        },
+        id: id,
+        updateId: (id) => {
+            setId(id);
         }
     };
 

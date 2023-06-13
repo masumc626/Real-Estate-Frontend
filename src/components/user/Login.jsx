@@ -18,6 +18,8 @@ export default function Login() {
         loginStatus ? navigate('/property') : navigate('/login')
     },[]);
 
+    // const data = useContext(UserContext)
+
     // useEffect(() => {
     //     fetch(`http://localhost:8080/login`, 
     //         {
