@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { idContext } from "../../context/id_context";
+import { UserContext } from "../../context/UserContext";
 import Header from "../../header/header";
 import Sidebar from "../../sidebar/sidebar";
 import "./property.css"
 const PropertyFormInfo = () => {
 
-    const propertyContext = useContext(idContext);
-    let basicInfo = propertyContext.basicid;
+    const propertyContext = useContext(UserContext);
+    let basicInfo = propertyContext.id;
     // console.log(basicInfo)
 
 
@@ -26,6 +26,7 @@ const PropertyFormInfo = () => {
         lift: "no",
         electricity: "",
         facing: "east",
+        basicInfo: propertyContext.id,
     });
     const handleClear = () => {
         setPropertyData({
@@ -42,6 +43,7 @@ const PropertyFormInfo = () => {
             lift: "no",
             electricity: "",
             facing: "east",
+            basicInfo: propertyContext.id,
         })
     }
 
@@ -64,7 +66,7 @@ const PropertyFormInfo = () => {
             return res.json();
         }).then(data => {
             console.log(data);
-            propertyContext.setpropertyid(data.propertydetails._id);
+            propertyContext.updateId(data.propertydetails._id);
             // debugger
             navigate("/generalinfo");
         }).catch(e => {

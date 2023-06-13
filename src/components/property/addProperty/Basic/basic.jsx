@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { idContext } from "../../context/id_context";
+import { UserContext } from "../../context/UserContext";
 import Header from "../../header/header";
 import Sidebar from "../../sidebar/sidebar";
 import "./basic.css";
+
 const BasicInfoForm = () => {
 
-    const basicContext = useContext(idContext);
+    const basicContext = useContext(UserContext);
     // console.log(basicContext);
 
     const navigate = useNavigate();
@@ -19,7 +20,8 @@ const BasicInfoForm = () => {
         propertyAge: "",
         propertyApproved: "yes",
         propertyDescription: "",
-        bankLoan: "no"
+        bankLoan: "no",
+        authorId : basicContext.id
     });
 
     const handleInputChange = (event) => {
@@ -53,7 +55,7 @@ const BasicInfoForm = () => {
             return res.json();
         }).then(data => {
             // console.log(data);
-            basicContext.setbasicid(data.basicdetails._id);
+            basicContext.updateId(data.basicdetails.id);
             navigate("/propertyinfo")
         }).catch(e => {
             console.log(e)
