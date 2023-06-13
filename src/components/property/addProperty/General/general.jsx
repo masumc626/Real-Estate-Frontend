@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { idContext } from "../../context/id_context";
+import { UserContext } from "../../context/UserContext";
 import Header from "../../header/header";
 import Sidebar from "../../sidebar/sidebar";
 import "./general.css";
@@ -8,9 +8,9 @@ import "./general.css";
 const GeneralFormInfo = () => {
     const navigate = useNavigate();
 
-    const generalContext = useContext(idContext);
+    const generalContext = useContext(UserContext);
 
-    let propertyInfo1 = generalContext.propertyid;
+    let propertyInfo1 = generalContext.id
 
     const [username, setUsername] = useState("");
     const [mobile, setMobile] = useState("");
@@ -57,7 +57,7 @@ const GeneralFormInfo = () => {
         }).then((data) => {
             // console.log(data, "generalinfo");
             if (data && data.generaldetails) {
-                generalContext.setgeneralid(data.generaldetails._id);
+                generalContext.updateId(data.generaldetails._id);
               }
             navigate("/locationinfo")
         }).catch((error) => {

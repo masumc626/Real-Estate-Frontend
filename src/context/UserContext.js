@@ -6,71 +6,25 @@ const UserContext = createContext({});
 
 const UserContextProvider = ({ children }) => {
 
-    const [login, setLogin] = useState(true);
-    const [userData, setUserData] = useState({});
-    const [id, setId] = useState();
-    const [data, setData] = useState([
-        {
-            _id: 12345,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
+
+    const [login , setLogin] = useState(true);
+    const [id , setId] = useState("");
+    const [userData, setUserData] = useState("");
+
+    const value = {
+        loginStatus : login,
+        id : id,
+        updateId : (id) =>{
+            setId(id);
         },
-        {
-            _id: 67890,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
+        userData: userData,
+        updateUserData: (data) => {
+            setUserData(data);
         },
-        {
-            _id: 54321,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 123450,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 678900,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 543210,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-    ]);
+        updateLoginStatus : (boolean)=>{
+          setlogin(boolean);
+        }
+    }
     const [dataRefresh, setDataRefresh] = useState(true);
     useEffect(() => {
         fetch(
@@ -90,24 +44,7 @@ const UserContextProvider = ({ children }) => {
             })
     }, [])
 
-    const value = {
-        loginStatus: login,
-        updateLoginStatus: (boolean) => {
-            setLogin(boolean);
-        },
-        data: data,
-        updateDataRefresh: () => {
-            setDataRefresh(!dataRefresh)
-        },
-        userData: userData,
-        updateUserData: (data) => {
-            setUserData(data);
-        },
-        id: id,
-        updateId: (id) => {
-            setId(id);
-        }
-    };
+    
 
     return <UserContext.Provider value={value}>
         {children}
