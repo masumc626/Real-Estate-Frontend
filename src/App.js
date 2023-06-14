@@ -3,10 +3,10 @@
 import './styles/utils.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './components/user/Login';
+import SignInPage from './components/user/SignIn';
 import SideNav from './components/SideNav';
 import TopNav from './components/TopNav';
-import Signup from './components/user/Signup';
+import SignUp from './components/user/Signup';
 import List from './components/property/List';
 // import BasicInfo from './components/property/BasicInfo';
 // import Details from './components/property/Details';
@@ -35,8 +35,8 @@ function App() {
       }
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/signin' element={<SignInPage/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
         <Route path='/property' element={<List/>}/>
         {/* <Route path='/basicinfo' element={<BasicInfo/>}/>
         <Route path='/details' element={<Details/>}/>

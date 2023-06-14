@@ -10,6 +10,68 @@ const UserContextProvider = ({ children }) => {
     const [login , setLogin] = useState(true);
     const [id , setId] = useState("");
     const [userData, setUserData] = useState("");
+    const [data,setData]=useState([
+        {
+            _id: 12345,
+            image: '',
+            property: 'house',
+            contact: "1234567890",
+            area: 'hyderabad',
+            views: 57,
+            status: 'sold',
+            daysLeft: 45,
+        },
+        {
+            _id: 67890,
+            image: '',
+            property: 'house',
+            contact: "1234567890",
+            area: 'hyderabad',
+            views: 57,
+            status: 'sold',
+            daysLeft: 45,
+        },
+        {
+            _id: 54321,
+            image: '',
+            property: 'house',
+            contact: "1234567890",
+            area: 'hyderabad',
+            views: 57,
+            status: 'sold',
+            daysLeft: 45,
+        },
+        {
+            _id: 123450,
+            image: '',
+            property: 'house',
+            contact: "1234567890",
+            area: 'hyderabad',
+            views: 57,
+            status: 'sold',
+            daysLeft: 45,
+        },
+        {
+            _id: 678900,
+            image: '',
+            property: 'house',
+            contact: "1234567890",
+            area: 'hyderabad',
+            views: 57,
+            status: 'sold',
+            daysLeft: 45,
+        },
+        {
+            _id: 543210,
+            image: '',
+            property: 'house',
+            contact: "1234567890",
+            area: 'hyderabad',
+            views: 57,
+            status: 'sold',
+            daysLeft: 45,
+        },
+    ]);
 
     const value = {
         loginStatus : login,
@@ -22,7 +84,7 @@ const UserContextProvider = ({ children }) => {
             setUserData(data);
         },
         updateLoginStatus : (boolean)=>{
-          setlogin(boolean);
+          setLogin(boolean);
         }
     }
     const [dataRefresh, setDataRefresh] = useState(true);
