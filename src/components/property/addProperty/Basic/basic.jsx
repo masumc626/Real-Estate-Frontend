@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import Header from "../../header/header";
-import Sidebar from "../../sidebar/sidebar";
+import { UserContext } from "../../../../context/UserContext";
+// import Header from "../../header/header";
+// import ";
 import "./basic.css";
 
 const BasicInfoForm = () => {
@@ -11,6 +11,9 @@ const BasicInfoForm = () => {
     // console.log(basicContext);
 
     const navigate = useNavigate();
+    useEffect(() => {
+        basicContext.loginStatus ? <></> : navigate('/signin')
+      }, []);
 
     const [formValues, setFormValues] = useState({
         property: "plot",
@@ -38,14 +41,15 @@ const BasicInfoForm = () => {
             propertyAge: "",
             propertyApproved: "yes",
             propertyDescription: "",
-            bankLoan: "no"
+            bankLoan: "no",
+            authorId : basicContext.id
         });
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        await fetch('http://localhost:8001/api/pro/basic', {
+        await fetch('http://localhost:8001/property/api/pro/basic', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,9 +58,9 @@ const BasicInfoForm = () => {
         }).then(res => {
             return res.json();
         }).then(data => {
-            // console.log(data);
-            basicContext.updateId(data.basicdetails.id);
-            navigate("/propertyinfo")
+            console.log(data);
+            basicContext.updateId(data.basicdetails._id);
+            navigate("/propertydetails")
         }).catch(e => {
             console.log(e)
         })
@@ -65,8 +69,8 @@ const BasicInfoForm = () => {
     return (
 
         <>
-            <Header />
-            <Sidebar />
+            {/* <Header />
+            <Sidebar /> */}
             <h3>ADD NEW PROPERTY</h3>
             <div className="basic-info-row">
                 <ul className="basic-ul-row">

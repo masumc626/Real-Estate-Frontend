@@ -8,12 +8,13 @@ import SideNav from './components/SideNav';
 import TopNav from './components/TopNav';
 import SignUp from './components/user/Signup';
 import List from './components/property/List';
-// import BasicInfo from './components/property/BasicInfo';
-// import Details from './components/property/Details';
-// import GeneralInfo from './components/property/GeneralInfo';
-// import LocationInfo from './components/property/LocationInfo';
+import BasicInfoForm from './components/property/addProperty/Basic/basic';
+import GeneralFormInfo from './components/property/addProperty/General/general';
+import LocationFormInfo from './components/property/addProperty/Location/location';
+import PropertyFormInfo from './components/property/addProperty/Property/property';
 import { useContext } from 'react';
 import { UserContext } from './context/UserContext';
+
 import Home from './components/Home';
 // import dotenv from 'dotenv';
 // dotenv.config();
@@ -37,11 +38,12 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/signin' element={<SignInPage/>}/>
         <Route path='/signup' element={<SignUp/>}/>
-        <Route path='/property' element={<List/>}/>
-        {/* <Route path='/basicinfo' element={<BasicInfo/>}/>
-        <Route path='/details' element={<Details/>}/>
-        <Route path='/generalinfo' element={<GeneralInfo/>}/>
-        <Route path='/locationinfo' element={<LocationInfo/>}/> */}
+        <Route path='/list' element={<List/>}/>
+        <Route path='/basicinfo' element={<BasicInfoForm/>}/>
+        <Route path='/propertydetails' element={<PropertyFormInfo/>}/>
+        <Route path='/generalinfo' element={<GeneralFormInfo/>}/>
+        <Route path='/locationinfo' element={<LocationFormInfo/>}/>
+        <Route path='/*' element={<Home/>}/>
       </Routes>
     </BrowserRouter>
   )

@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function TopNav() {
   const [logOutbtn , setlogOutbtn] = useState(false);
-  const {updateLoginStatus, userName, userId} = useContext(UserContext);
+  const {updateLoginStatus, userName, userI, userData} = useContext(UserContext);
   const navigate = useNavigate()
 
-  const username = userName ||"Eshwar"
-  const userid = userId || "06PPD125"
+  const username = userData.email || "uknown" 
+  const userid = `06PPD${userData.id}` || "06PPD125"
   return (
     <div className='top-nav non-selec-clr'>
       <p className=''>USER ID : {userid}</p>
@@ -25,7 +25,7 @@ export default function TopNav() {
       </p>
       {logOutbtn ? <p className='logout-btn' onClick={()=> {
         updateLoginStatus(false);
-        navigate('/login');
+        navigate('/signin');
       }}>Log out</p> : <></>}
       </div>
     </div>

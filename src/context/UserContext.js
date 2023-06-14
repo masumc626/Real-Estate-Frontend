@@ -7,9 +7,14 @@ const UserContext = createContext({});
 const UserContextProvider = ({ children }) => {
 
 
-    const [login , setLogin] = useState(true);
-    const [id , setId] = useState("");
-    const [userData, setUserData] = useState("");
+    const [login , setLogin] = useState(false);
+    const [id , setId] = useState("noId");
+    const [userData, setUserData] = useState({
+        _id: "132455",
+        userId: "Unkown"
+    });
+    console.log(id);
+    const [dataRefresh, setDataRefresh] = useState(true);
     const [data,setData]=useState([
         {
             _id: 12345,
@@ -20,57 +25,7 @@ const UserContextProvider = ({ children }) => {
             views: 57,
             status: 'sold',
             daysLeft: 45,
-        },
-        {
-            _id: 67890,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 54321,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 123450,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 678900,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
-        {
-            _id: 543210,
-            image: '',
-            property: 'house',
-            contact: "1234567890",
-            area: 'hyderabad',
-            views: 57,
-            status: 'sold',
-            daysLeft: 45,
-        },
+        }
     ]);
 
     const value = {
@@ -85,9 +40,16 @@ const UserContextProvider = ({ children }) => {
         },
         updateLoginStatus : (boolean)=>{
           setLogin(boolean);
+        },
+        data : data,
+        updateData : (newData) => {
+            setData(newData);
+        },
+        dataRefresh : dataRefresh,
+        updateDataRefresh : ()=>{
+            setDataRefresh(!dataRefresh)
         }
     }
-    const [dataRefresh, setDataRefresh] = useState(true);
     useEffect(() => {
         fetch(
             `http://localhost:8001//api/alldata`
@@ -104,7 +66,7 @@ const UserContextProvider = ({ children }) => {
             .catch((err) => {
                 console.log(err);
             })
-    }, [])
+    }, [dataRefresh])
 
     
 

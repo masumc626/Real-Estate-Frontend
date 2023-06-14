@@ -8,7 +8,7 @@ export default function Home() {
     const { loginStatus } = useContext(UserContext);
     const navigate = useNavigate();
     useEffect(() =>{
-        loginStatus ? navigate('/property') : navigate('/login')
+        loginStatus ? navigate('/list') : navigate('/signin')
     },[]);
     return (
         <></>
