@@ -1,17 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import Header from "../../header/header";
-import Sidebar from "../../sidebar/sidebar";
+import { UserContext } from "../../../../context/UserContext";
+// import Header from "../../header/header";
+// import Sidebar from "../../sidebar/sidebar";
 import "./property.css"
 const PropertyFormInfo = () => {
 
     const propertyContext = useContext(UserContext);
     let basicInfo = propertyContext.id;
-    // console.log(basicInfo)
 
 
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        propertyContext.loginStatus ? <></> : navigate('/signin')
+    }, []);
+
     const [propertyData, setPropertyData] = useState({
         length: "",
         breadth: "",
@@ -56,7 +60,7 @@ const PropertyFormInfo = () => {
         const dataToSend = { ...propertyData, basicInfo };
         event.preventDefault();
         // console.log(propertyData);
-        await fetch('http://localhost:8001/api/pro/property', {
+        await fetch('http://localhost:8001/property/api/pro/property', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +71,6 @@ const PropertyFormInfo = () => {
         }).then(data => {
             console.log(data);
             propertyContext.updateId(data.propertydetails._id);
-            // debugger
             navigate("/generalinfo");
         }).catch(e => {
             console.log(e)
@@ -80,8 +83,8 @@ const PropertyFormInfo = () => {
 
     return (
         <>
-            <Header />
-            <Sidebar />
+            {/* <Header />
+            <Sidebar /> */}
             <div className="property-info-row">
                 <h3>ADD NEW PROPERTY</h3>
                 <ul className="property-ul-row">

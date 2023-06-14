@@ -1,14 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import Header from "../../header/header";
-import Sidebar from "../../sidebar/sidebar";
+import { UserContext } from "../../../../context/UserContext";
+// import Header from "../../header/header";
+// import Sidebar from "../../sidebar/sidebar";
 import "./location.css";
 const LocationFormInfo = () => {
   const locationContext = useContext(UserContext);
   const generalInfo = locationContext.id;
-
   const navigate = useNavigate();
+  useEffect(() => {
+    locationContext.loginStatus ? <></> : navigate('/signin')
+  }, []);
+
   const [formData, setFormData] = useState({
     email: "",
     city: "",
@@ -46,30 +49,31 @@ const LocationFormInfo = () => {
     event.preventDefault();
     const dataToSend = { ...formData, generalInfo };
 
-    fetch("http://localhost:8001/api/pro/location", {
+    fetch("http://localhost:8001/property/api/pro/location", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataToSend),
+      body: JSON.stringify(dataToSend ),
     })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        // console.log(data);
-        navigate("/propertylist");
+        console.log(data);
+        locationContext.updateDataRefresh();
+        navigate("/list");
       })
       .catch((error) => {
-        navigate("/propertylist");
+        navigate("/list");
         console.error(error);
       });
   };
 
   return (
     <>
-      <Header />
-      <Sidebar />
+      {/* <Header />
+      <Sidebar /> */}
       <div className="location-info-row">
         <h3>ADD NEW PROPERTY</h3>
         <ul className="location-ul-row">

@@ -14,7 +14,7 @@ export default function List() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loginStatus ? navigate('/property') : navigate('/login')
+    loginStatus ? <></> : navigate('/signin')
   }, []);
 
   const { data, updateDataRefresh } = useContext(UserContext);
@@ -36,9 +36,6 @@ export default function List() {
             value={searchInput} />
           <div 
           className='search-logo'
-          onClick={()=>{
-            // setSearch(true)
-          }}
           >
             <SearchLogo />
           </div>

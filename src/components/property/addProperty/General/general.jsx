@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import Header from "../../header/header";
-import Sidebar from "../../sidebar/sidebar";
+import { useNavigate } from  "react-router-dom";
+import { UserContext } from "../../../../context/UserContext";
+// import Header from "../../header/header";
+// import Sidebar from "../../sidebar/sidebar";
 import "./general.css";
 
 const GeneralFormInfo = () => {
@@ -20,6 +20,10 @@ const GeneralFormInfo = () => {
     const [PPDpackage, setPPDPackage] = useState("");
     const [image, setImage] = useState(null);
     const [propertyInfo, setpropertyInfo] = useState("");
+
+    useEffect(() => {
+        generalContext.loginStatus ? <></> : navigate('/signin')
+      }, []);
 
     useEffect(() => {
         setpropertyInfo(propertyInfo1)
@@ -47,15 +51,15 @@ const GeneralFormInfo = () => {
         formData.append("feature", feature);
         formData.append("PPDpackage", PPDpackage);
         formData.append("image", image);
-        formData.append("propertyInfo", propertyInfo);
+        formData.append("propertyInfo", generalContext.id);
 
-        fetch("http://localhost:8001/api/pro/general", {
+        fetch("http://localhost:8001/property/api/pro/general", {
             method: "POST",
             body: formData,
         }).then((response) => {
             return response.json()
         }).then((data) => {
-            // console.log(data, "generalinfo");
+            console.log(data);
             if (data && data.generaldetails) {
                 generalContext.updateId(data.generaldetails._id);
               }
@@ -67,8 +71,8 @@ const GeneralFormInfo = () => {
 
     return (
         <>
-            <Header />
-            <Sidebar />
+            {/* <Header />
+            <Sidebar /> */}
             <div className="general-info-row">
                 <h3>ADD NEW PROPERTY</h3>
                 <ul className="general-ul-row">

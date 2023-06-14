@@ -1,8 +1,9 @@
 
 
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './signup.css';
-import { Link, Routes,Route } from 'react-router-dom';
+import { Link, Routes,Route, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 import SignInPage from './SignIn';
 import BrandLogo from '../../utils/BrandLogo';
 
@@ -11,6 +12,12 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmpassword] = useState('');
   const [redirectToSignIn, setRedirectToSignIn] = useState(false);
+  const { loginStatus } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loginStatus ? navigate('/list') : navigate('/signup')
+  }, []);
   
 
   const handleSignUp = () => {
@@ -22,22 +29,25 @@ function SignUp() {
     };
 
     // Send a POST request to the signup endpoint
-    fetch('http://localhost:8002/signup', {
-      method: 'POST',
+    fetch('http://localhost:8001/user/signup', {
+      method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        confirmPassword : confirmpassword
+      })
     })
-      .then(response => response.json())
-      .then(data => {
-        // Handle the response from the server
-        console.log(data); // You can perform actions based on the response
-        if (data.message === 'success') {
-          // Redirect to the sign-in page
-          setRedirectToSignIn(true);
+      .then(response => {
+        if(response.status === 201){
+          navigate('/signin')
         }
-        
+        response.json()
+      })
+      .then(data => {
+        console.log(data);  
       })
       .catch(error => {
         // Handle any errors that occur during the request

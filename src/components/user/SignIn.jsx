@@ -1,11 +1,19 @@
 
 import './signInpage.css';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import BrandLogo from '../../utils/BrandLogo';
+import { UserContext } from '../../context/UserContext';
+
 function SignInPage() {
   const [email, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const { loginStatus, updateId, updateUserData, updateLoginStatus } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loginStatus ? navigate('/list') : navigate('/signin')
+  }, []);
 
   const handleSignIn = () => {
     // Create the payload object with user credentials
@@ -15,18 +23,31 @@ function SignInPage() {
     };
 
     // Make an HTTP POST request to save user data to the database
-    fetch('http://localhost:8002/signin', {
+    fetch('http://localhost:8001/user/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        email : email,
+        password : password
+      })
     })
     .then(response => response.json())
     .then(data => {
       // Handle the response from the API
-      console.log('Response from server:', data);
-      // Do any necessary actions after saving the data
+      if(data.status == "success"){
+        console.log(data)
+        updateUserData(data);
+        updateId(data.id);
+        updateLoginStatus(true);
+        navigate('/list')
+        console.log('Response from server:', data);
+      }
+      else{
+        throw new Error("sign in failed")
+      }
+
     })
     .catch(error => {
       console.error('Error:', error);
@@ -58,11 +79,11 @@ function SignInPage() {
             onChange={event => setPassword(event.target.value)}
           />
           <button className="signInButton" onClick={handleSignIn}>Sign In</button>
-          <Link className="signIn" to="/signUp">Sign Up</Link>
+          <Link className="signIn" to="/signup">Sign Up</Link>
         </div>
         <p className="signInn">
           Don't have an account?
-          <Link to="/signUp"> Sign Up</Link>
+          <Link to="/signup"> Sign Up</Link>
         </p>
       </header>
     </div>

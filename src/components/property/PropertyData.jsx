@@ -6,6 +6,7 @@ import EditLogo from '../../utils/EditLogo';
 
 export default function PropertyData({ item }) {
   const { _id, image, property, contact, area, views, status, daysLeft } = item;
+  // console.log(item)
   const [view, setView] = useState(true);
   return (
     <tr key={item._id}>
