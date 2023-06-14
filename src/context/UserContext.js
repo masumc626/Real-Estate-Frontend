@@ -50,23 +50,23 @@ const UserContextProvider = ({ children }) => {
             setDataRefresh(!dataRefresh)
         }
     }
-    useEffect(() => {
-        fetch(
-            `http://localhost:8001//api/alldata`
-        )
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                }
-                throw new Error(response.json());
-            })
-            .then(res => {
-                setData(res)
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, [dataRefresh])
+    // useEffect(() => {
+    //     fetch(
+    //         `https://real-estate-backend-g14x.onrender.com/property/api/alldata`
+    //     )
+    //         .then(response => {
+    //             if (response.status === 200) {
+    //                 return response.json();
+    //             }
+    //             throw new Error(response.json());
+    //         })
+    //         .then(res => {
+    //             setData(res)
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }, [dataRefresh])
 
     
 

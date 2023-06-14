@@ -22,7 +22,7 @@ const LocationFormInfo = () => {
     latitude: "",
     longitude: "",
     generalInfo: generalInfo,
-    authorId: locationContext.userData._id,
+    authorId: locationContext.userData.id,
   });
 
   const handleClear = () => {
@@ -36,7 +36,7 @@ const LocationFormInfo = () => {
       latitude: "",
       longitude: "",
       generalInfo: generalInfo,
-      authorId: locationContext.userData._id,
+      authorId: locationContext.userData.id,
     });
   };
 
@@ -49,7 +49,7 @@ const LocationFormInfo = () => {
     event.preventDefault();
     const dataToSend = { ...formData, generalInfo };
 
-    fetch("http://localhost:8001/property/api/pro/location", {
+    fetch("https://real-estate-backend-g14x.onrender.com/property/api/pro/location", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +62,7 @@ const LocationFormInfo = () => {
       .then((data) => {
         console.log(data);
         locationContext.updateDataRefresh();
+
         navigate("/list");
       })
       .catch((error) => {
@@ -106,10 +107,10 @@ const LocationFormInfo = () => {
                   required
                 >
                   <option value="">Select city</option>
-                  <option value="delhi">Delhi</option>
-                  <option value="mumbai">Mumbai</option>
-                  <option value="banglore">Banglore</option>
-                  <option value="hyderabad">Hyderabad</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Nashik">Nashik</option>
+                  <option value="Kolhapur">Kolhapur</option>
                 </select>
               </label>
             </div>

@@ -60,7 +60,7 @@ const PropertyFormInfo = () => {
         const dataToSend = { ...propertyData, basicInfo };
         event.preventDefault();
         // console.log(propertyData);
-        await fetch('http://localhost:8001/property/api/pro/property', {
+        await fetch('https://real-estate-backend-g14x.onrender.com/property/api/pro/property', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

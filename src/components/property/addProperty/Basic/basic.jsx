@@ -49,7 +49,7 @@ const BasicInfoForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        await fetch('http://localhost:8001/property/api/pro/basic', {
+        await fetch('https://real-estate-backend-g14x.onrender.com/property/api/pro/basic', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -44,7 +44,7 @@ const GeneralFormInfo = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append("username", username);
+        formData.append("name", username);
         formData.append("mobile", mobile);
         formData.append("postedby", postedby);
         formData.append("saletype", saletype);
@@ -53,7 +53,7 @@ const GeneralFormInfo = () => {
         formData.append("image", image);
         formData.append("propertyInfo", generalContext.id);
 
-        fetch("http://localhost:8001/property/api/pro/general", {
+        fetch("https://real-estate-backend-g14x.onrender.com/property/api/pro/general", {
             method: "POST",
             body: formData,
         }).then((response) => {

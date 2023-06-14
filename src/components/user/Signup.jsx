@@ -29,7 +29,7 @@ function SignUp() {
     };
 
     // Send a POST request to the signup endpoint
-    fetch('http://localhost:8001/user/signup', {
+    fetch('https://real-estate-backend-g14x.onrender.com/user/signup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
