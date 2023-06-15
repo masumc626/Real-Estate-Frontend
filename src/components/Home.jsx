@@ -9,7 +9,7 @@ export default function Home() {
     const navigate = useNavigate();
     useEffect(() =>{
         loginStatus ? navigate('/list') : navigate('/signin')
-    },[]);
+    });
     return (
         <></>
     )

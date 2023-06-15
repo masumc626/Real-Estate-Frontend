@@ -7,7 +7,6 @@ import ReceivedIntrestLogo from '../utils/ReceivedIntrestLogo'
 import SentIntrestLogo from '../utils/SentIntrestLogo'
 import PropertyViews from '../utils/PropertyViews'
 import TariffPlan from '../utils/TariffPlan'
-import TopNav from './TopNav'
 
 export default function SideNav() {
   const array = [

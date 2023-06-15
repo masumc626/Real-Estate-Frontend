@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function TopNav() {
   const [logOutbtn , setlogOutbtn] = useState(false);
-  const {updateLoginStatus, userName, userI, userData} = useContext(UserContext);
+  const {updateLoginStatus, userData} = useContext(UserContext);
   const navigate = useNavigate()
 
   const username = userData.email || "uknown" 

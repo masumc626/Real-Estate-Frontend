@@ -1,97 +1,85 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from  "react-router-dom";
+import { Link, useNavigate } from  "react-router-dom";
 import { UserContext } from "../../../../context/UserContext";
-// import Header from "../../header/header";
-// import Sidebar from "../../sidebar/sidebar";
 import "./general.css";
+import PropertyNav from "../../../PropertyNav";
 
 const GeneralFormInfo = () => {
     const navigate = useNavigate();
 
-    const generalContext = useContext(UserContext);
+    const { updateFormData, formData, loginStatus, updateImage, image } = useContext(UserContext);
 
-    let propertyInfo1 = generalContext.id
-
-    const [username, setUsername] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [postedby, setPostedBy] = useState("owner");
-    const [saletype, setSaleType] = useState("");
-    const [feature, setFeature] = useState("");
-    const [PPDpackage, setPPDPackage] = useState("");
-    const [image, setImage] = useState(null);
-    const [propertyInfo, setpropertyInfo] = useState("");
+    // const [username, setUsername] = useState("");
+    // const [mobile, setMobile] = useState("");
+    // const [postedby, setPostedBy] = useState("owner");
+    // const [saletype, setSaleType] = useState("");
+    // const [feature, setFeature] = useState("");
+    // const [PPDpackage, setPPDPackage] = useState("");
+    // const [image, setImage] = useState(null);
+    // const [propertyInfo, setpropertyInfo] = useState("");
 
     useEffect(() => {
-        generalContext.loginStatus ? <></> : navigate('/signin')
-      }, []);
+        loginStatus ? <></> : navigate('/signin')
+      });
 
-    useEffect(() => {
-        setpropertyInfo(propertyInfo1)
-    }, [propertyInfo1])
-
-
-    const handleClear = () => {
-        setUsername("")
-        setMobile("")
-        setPostedBy("owner")
-        setSaleType("")
-        setFeature("")
-        setPPDPackage("")
-        setImage(null)
-    }
+    // useEffect(() => {
+    //     setpropertyInfo(propertyInfo1)
+    // }, [propertyInfo1])
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append("name", username);
-        formData.append("mobile", mobile);
-        formData.append("postedby", postedby);
-        formData.append("saletype", saletype);
-        formData.append("feature", feature);
-        formData.append("PPDpackage", PPDpackage);
-        formData.append("image", image);
-        formData.append("propertyInfo", generalContext.id);
+    // const handleClear = () => {
+    //     setUsername("")
+    //     setMobile("")
+    //     setPostedBy("owner")
+    //     setSaleType("")
+    //     setFeature("")
+    //     setPPDPackage("")
+    //     setImage(null)
+    // }
 
-        fetch("https://real-estate-backend-g14x.onrender.com/property/api/pro/general", {
-            method: "POST",
-            body: formData,
-        }).then((response) => {
-            return response.json()
-        }).then((data) => {
-            console.log(data);
-            if (data && data.generaldetails) {
-                generalContext.updateId(data.generaldetails._id);
-              }
-            navigate("/locationinfo")
-        }).catch((error) => {
-            console.error(error);
-        });
-    };
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const formData = new FormData();
+    //     formData.append("name", username);
+    //     formData.append("mobile", mobile);
+    //     formData.append("postedby", postedby);
+    //     formData.append("saletype", saletype);
+    //     formData.append("feature", feature);
+    //     formData.append("PPDpackage", PPDpackage);
+    //     formData.append("image", image);
+    //     formData.append("propertyInfo", generalContext.id);
+
+    //     fetch("https://real-estate-backend-g14x.onrender.com/property/api/pro/general", {
+    //         method: "POST",
+    //         body: formData,
+    //     }).then((response) => {
+    //         return response.json()
+    //     }).then((data) => {
+    //         console.log(data);
+    //         if (data && data.generaldetails) {
+    //             generalContext.updateId(data.generaldetails._id);
+    //           }
+    //         navigate("/locationinfo")
+    //     }).catch((error) => {
+    //         console.error(error);
+    //     });
+    // };
 
     return (
         <>
-            {/* <Header />
-            <Sidebar /> */}
-            <div className="general-info-row">
-                <h3>ADD NEW PROPERTY</h3>
-                <ul className="general-ul-row">
-                    <li>Basic info</li>
-                    <li >Property Details</li>
-                    <li className="general-li">General Info</li>
-                    <li>Location Info</li>
-                </ul>
-            </div>
+             <PropertyNav section={"general"}/>
             <div className="general-form-container">
-                <form onSubmit={handleSubmit}>
+                <form>
                     <div className="genral-form-flexbox">
                         <div>
                             <label>
                                 Username<span style={{ color: "red" }}>*</span>:
                                 <input
                                     type="text"
-                                    value={username}
-                                    onChange={(event) => setUsername(event.target.value)}
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={updateFormData}
                                     required
                                 />
                             </label>
@@ -99,8 +87,9 @@ const GeneralFormInfo = () => {
                                 Mobile<span style={{ color: "red" }}>*</span>:
                                 <input
                                     type="number"
-                                    value={mobile}
-                                    onChange={(event) => setMobile(event.target.value)}
+                                    name="mobile"
+                                    value={formData.mobile}
+                                    onChange={updateFormData}
                                     required
                                     minLength="10"
                                     maxLength="12"
@@ -112,7 +101,10 @@ const GeneralFormInfo = () => {
 
                             <label>
                                 Posted By:
-                                <select value={postedby} onChange={(event) => setPostedBy(event.target.value)}>
+                                <select 
+                                value={formData.posted_by}
+                                name="posted_by"
+                                onChange={updateFormData}>
                                     <option value="owner">Owner</option>
                                     <option value="dealer">Dealer</option>
                                 </select>
@@ -122,8 +114,9 @@ const GeneralFormInfo = () => {
                                 Sale Type:
                                 <input
                                     type="text"
-                                    value={saletype}
-                                    onChange={(event) => setSaleType(event.target.value)}
+                                    name="sale_type"
+                                    value={formData.sale_type}
+                                    onChange={updateFormData}
                                     placeholder="eg. transaction, loan,etc.."
                                 />
                             </label>
@@ -133,7 +126,11 @@ const GeneralFormInfo = () => {
 
                             <label>
                                 Feature <span style={{ color: "red" }}>*</span>:
-                                <select value={feature} onChange={(event) => setFeature(event.target.value)} required>
+                                <select 
+                                value={formData.featured} 
+                                name="featured"
+                                onChange={updateFormData} 
+                                required>
                                     <option value="gym">Gym</option>
                                     <option value="pool">Pool</option>
                                     <option value="garden">Garden</option>
@@ -145,8 +142,9 @@ const GeneralFormInfo = () => {
                                 PPD Package:
                                 <input
                                     type="text"
-                                    value={PPDpackage}
-                                    onChange={(event) => setPPDPackage(event.target.value)}
+                                    name="ppd_package"
+                                    value={formData.ppd_package}
+                                    onChange={updateFormData}
                                 />
                             </label>
                         </div>
@@ -154,16 +152,19 @@ const GeneralFormInfo = () => {
                             <label>
                                 Image <span style={{ color: "red" }}>*</span>:
                                 <input type="file"
+                                    name="image"
                                     accept=".jpeg, .jpg, .png, .mp4"
-                                    onChange={(event) => setImage(event.target.files[0])} required />
+                                    onChange={(e)=>{
+                                        updateImage(e.target.files[0]);
+                                    }} required />
                             </label>
                         </div>
                         <div className="general-btn">
                             <div>
-                                <button onChange={handleClear}>Clear</button>
+                                <Link to={"/propertydetails"}><button>Pervious</button></Link>
                             </div>
                             <div>
-                                <button type="submit">save & continue </button>
+                                <Link to={"/locationinfo"}><button type="submit">save & continue </button></Link>
                             </div>
                         </div>
 

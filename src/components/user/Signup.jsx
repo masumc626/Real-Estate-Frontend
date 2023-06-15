@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import './signup.css';
-import { Link, Routes,Route, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import SignInPage from './SignIn';
 import BrandLogo from '../../utils/BrandLogo';
@@ -12,24 +12,19 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmpassword] = useState('');
   const [redirectToSignIn, setRedirectToSignIn] = useState(false);
-  const { loginStatus } = useContext(UserContext);
+  const { loginStatus, SERVER_ADDRESS } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     loginStatus ? navigate('/list') : navigate('/signup')
-  }, []);
+  });
   
 
   const handleSignUp = () => {
     // Create an object with the user data
-    const userData = {
-      email: email,
-      password: password,
-      confirmpassword: confirmpassword
-    };
 
     // Send a POST request to the signup endpoint
-    fetch('https://real-estate-backend-g14x.onrender.com/user/signup', {
+    fetch(`${SERVER_ADDRESS}user/signup`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

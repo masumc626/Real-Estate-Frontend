@@ -1,101 +1,91 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../context/UserContext";
 // import Header from "../../header/header";
 // import Sidebar from "../../sidebar/sidebar";
 import "./property.css"
+import PropertyNav from "../../../PropertyNav";
 const PropertyFormInfo = () => {
 
-    const propertyContext = useContext(UserContext);
-    let basicInfo = propertyContext.id;
+    const { updateFormData, formData,  loginStatus } = useContext(UserContext);
 
 
 
     const navigate = useNavigate();
     useEffect(() => {
-        propertyContext.loginStatus ? <></> : navigate('/signin')
-    }, []);
-
-    const [propertyData, setPropertyData] = useState({
-        length: "",
-        breadth: "",
-        totalArea: "",
-        areaUnit: "sqm",
-        bhk: "",
-        floor: "",
-        attached: "yes",
-        westernToilet: "yes",
-        furnished: "no",
-        parking: "no",
-        lift: "no",
-        electricity: "",
-        facing: "east",
-        basicInfo: propertyContext.id,
+        loginStatus ? <></> : navigate('/signin')
     });
-    const handleClear = () => {
-        setPropertyData({
-            length: "",
-            breadth: "",
-            totalArea: "",
-            areaUnit: "sqm",
-            bhk: "",
-            floor: "",
-            attached: "yes",
-            westernToilet: "yes",
-            furnished: "no",
-            parking: "no",
-            lift: "no",
-            electricity: "",
-            facing: "east",
-            basicInfo: propertyContext.id,
-        })
-    }
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setPropertyData({ ...propertyData, [name]: value });
-    };
+    // const [formData, setformData] = useState({
+    //     length: "",
+    //     breadth: "",
+    //     totalArea: "",
+    //     areaUnit: "sqm",
+    //     bhk: "",
+    //     floor: "",
+    //     attached: "yes",
+    //     westernToilet: "yes",
+    //     furnished: "no",
+    //     parking: "no",
+    //     lift: "no",
+    //     electricity: "",
+    //     facing: "east",
+    //     basicInfo: propertyContext.id,
+    // });
+    // const handleClear = () => {
+    //     setformData({
+    //         length: "",
+    //         breadth: "",
+    //         totalArea: "",
+    //         areaUnit: "sqm",
+    //         bhk: "",
+    //         floor: "",
+    //         attached: "yes",
+    //         westernToilet: "yes",
+    //         furnished: "no",
+    //         parking: "no",
+    //         lift: "no",
+    //         electricity: "",
+    //         facing: "east",
+    //         basicInfo: propertyContext.id,
+    //     })
+    // }
 
-    const handleSubmit = async (event) => {
-        const dataToSend = { ...propertyData, basicInfo };
-        event.preventDefault();
-        // console.log(propertyData);
-        await fetch('https://real-estate-backend-g14x.onrender.com/property/api/pro/property', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend),
-        }).then(res => {
-            return res.json();
-        }).then(data => {
-            console.log(data);
-            propertyContext.updateId(data.propertydetails._id);
-            navigate("/generalinfo");
-        }).catch(e => {
-            console.log(e)
-        })
+    // const updateFormData = (event) => {
+    //     const { name, value } = event.target;
+    //     setformData({ ...formData, [name]: value });
+    // };
+
+    // const handleSubmit = async (event) => {
+    //     const dataToSend = { ...formData, basicInfo };
+    //     event.preventDefault();
+    //     // console.log(formData);
+    //     await fetch('https://real-estate-backend-g14x.onrender.com/property/api/pro/property', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(dataToSend),
+    //     }).then(res => {
+    //         return res.json();
+    //     }).then(data => {
+    //         console.log(data);
+    //         propertyContext.updateId(data.propertydetails._id);
+    //         navigate("/generalinfo");
+    //     }).catch(e => {
+    //         console.log(e)
+    //     })
 
 
 
 
-    };
+    // };
 
     return (
         <>
-            {/* <Header />
-            <Sidebar /> */}
-            <div className="property-info-row">
-                <h3>ADD NEW PROPERTY</h3>
-                <ul className="property-ul-row">
-                    <li >Basic info</li>
-                    <li className="property-li">Property Details</li>
-                    <li>General Info</li>
-                    <li>Location Info</li>
-                </ul>
-            </div>
+            <PropertyNav section={"property"}/>
             <div className="property-form-container">
-                <form onSubmit={handleSubmit}>
+                <form>
                     <div className="property-form-flexbox">
                         <div>
                             <label>
@@ -103,8 +93,8 @@ const PropertyFormInfo = () => {
                                 <input
                                     type="number"
                                     name="length"
-                                    value={propertyData.length}
-                                    onChange={handleInputChange}
+                                    value={formData.length}
+                                    onChange={updateFormData}
                                 />
                             </label>
                             <label>
@@ -112,8 +102,8 @@ const PropertyFormInfo = () => {
                                 <input
                                     type="number"
                                     name="breadth"
-                                    value={propertyData.breadth}
-                                    onChange={handleInputChange}
+                                    value={formData.breadth}
+                                    onChange={updateFormData}
                                 />
                             </label>
                         </div>
@@ -122,16 +112,16 @@ const PropertyFormInfo = () => {
                                 Total Area <span style={{ color: "red" }}>*</span>:
                                 <input
                                     type="number"
-                                    name="totalArea"
-                                    value={propertyData.totalArea}
-                                    onChange={handleInputChange}
+                                    name="total_area"
+                                    value={formData.total_area}
+                                    onChange={updateFormData}
                                     required
                                 />
                             </label>
 
                             <label>
                                 Area Unit:
-                                <select name="areaUnit" value={propertyData.areaUnit} onChange={handleInputChange} >
+                                <select name="area_unit" value={formData.area_unit} onChange={updateFormData} >
                                     <option value="sqm">sqm</option>
                                     <option value="acres">acres</option>
                                     <option value="hectares">hectares</option>
@@ -142,10 +132,10 @@ const PropertyFormInfo = () => {
                             <label>
                                 BHK:
                                 <input
-                                    type="number"
-                                    name="bhk"
-                                    value={propertyData.bhk}
-                                    onChange={handleInputChange}
+                                    type="numberr"
+                                    name="no_of_bhk"
+                                    value={formData.no_of_bhk}
+                                    onChange={updateFormData}
                                 />
                             </label>
 
@@ -153,16 +143,16 @@ const PropertyFormInfo = () => {
                                 Floor:
                                 <input
                                     type="number"
-                                    name="floor"
-                                    value={propertyData.floor}
-                                    onChange={handleInputChange}
+                                    name="no_of_floor"
+                                    value={formData.no_of_floor}
+                                    onChange={updateFormData}
                                 />
                             </label>
                         </div>
                         <div>
                             <label>
                                 Attached:
-                                <select name="attached" value={propertyData.attached} onChange={handleInputChange}    >
+                                <select name="attached" value={formData.attached} onChange={updateFormData}    >
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -170,7 +160,7 @@ const PropertyFormInfo = () => {
 
                             <label>
                                 Western Toilet:
-                                <select name="westernToilet" value={propertyData.westernToilet} onChange={handleInputChange}>
+                                <select name="western_toilet" value={formData.western_toilet} onChange={updateFormData}>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -179,7 +169,7 @@ const PropertyFormInfo = () => {
                         <div>
                             <label>
                                 Furnished:
-                                <select name="furnished" value={propertyData.furnished} onChange={handleInputChange}  >
+                                <select name="furnished" value={formData.furnished} onChange={updateFormData}  >
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -187,7 +177,7 @@ const PropertyFormInfo = () => {
 
                             <label>
                                 Parking:
-                                <select name="parking" value={propertyData.parking} onChange={handleInputChange}    >
+                                <select name="car_parking" value={formData.car_parking} onChange={updateFormData}    >
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -196,7 +186,7 @@ const PropertyFormInfo = () => {
                         <div>
                             <label>
                                 Lift:
-                                <select name="lift" value={propertyData.lift} onChange={handleInputChange}    >
+                                <select name="lift" value={formData.lift} onChange={updateFormData}    >
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -207,8 +197,8 @@ const PropertyFormInfo = () => {
                                 <input
                                     type="text"
                                     name="electricity"
-                                    value={propertyData.electricity}
-                                    onChange={handleInputChange}
+                                    value={formData.electricity}
+                                    onChange={updateFormData}
                                     placeholder="eg. 3 phase"
                                 />
                             </label>
@@ -216,7 +206,7 @@ const PropertyFormInfo = () => {
                         <div>
                             <label>
                                 Facing:
-                                <select name="facing" value={propertyData.facing} onChange={handleInputChange} >
+                                <select name="facing" value={formData.facing} onChange={updateFormData} >
                                     <option value="east">EAST</option>
                                     <option value="west">WEST</option>
                                     <option value="north">NORTH</option>
@@ -227,10 +217,10 @@ const PropertyFormInfo = () => {
                         <div></div>
                         <div className="property-btn">
                             <div>
-                                <button onChange={handleClear}>Clear</button>
+                                <Link to={"/basicinfo"}><button>Pervious</button></Link>
                             </div>
                             <div>
-                                <button type="submit">Save & continue</button>
+                                <Link to={"/generalinfo"}><button>Save & continue</button></Link>
                             </div>
                         </div>
                     </div>
