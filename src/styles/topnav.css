@@ -44,3 +44,9 @@
     background-color: #2289FF;
     /* border:1px solid #2289FF; */
 }
+
+@media screen and (width <= 700px) {
+    .top-nav{
+        flex-direction: column;
+    }
+}

@@ -1,91 +1,120 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../context/UserContext";
 // import Header from "../../header/header";
 // import Sidebar from "../../sidebar/sidebar";
 import "./location.css";
+import PropertyNav from "../../../PropertyNav";
 const LocationFormInfo = () => {
-  const locationContext = useContext(UserContext);
-  const generalInfo = locationContext.id;
+  const { updateFormData, formData, loginStatus, SERVER_ADDRESS, updateDataRefresh, image } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
-    locationContext.loginStatus ? <></> : navigate('/signin')
-  }, []);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    city: "",
-    area: "",
-    pincode: "",
-    address: "",
-    landmark: "",
-    latitude: "",
-    longitude: "",
-    generalInfo: generalInfo,
-    authorId: locationContext.userData.id,
+    loginStatus ? <></> : navigate('/signin')
   });
 
-  const handleClear = () => {
-    setFormData({
-      email: "",
-      city: "",
-      area: "",
-      pincode: "",
-      address: "",
-      landmark: "",
-      latitude: "",
-      longitude: "",
-      generalInfo: generalInfo,
-      authorId: locationContext.userData.id,
-    });
-  };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const handleSubmit = async () => {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const dataToSend = { ...formData, generalInfo };
+    const convertedFormData = new FormData();
 
-    fetch("https://real-estate-backend-g14x.onrender.com/property/api/pro/location", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataToSend ),
-    })
+    for (const [key, value] of Object.entries(formData)) {
+      convertedFormData.append(`${key}`, `${value}`);
+      // console.log(convertedFormData.get(`${key}`))
+    }
+
+    convertedFormData.append("image", image);
+
+    await fetch(
+      `${SERVER_ADDRESS}property`,
+      {
+        method: "post",
+        body: convertedFormData
+      }
+    )
       .then((res) => {
-        return res.json();
+        if (res.status === 200) {
+          return res.json();
+        }
+        console.log(res)
+        throw new Error('Falied to save data Please try again')
       })
       .then((data) => {
-        console.log(data);
-        locationContext.updateDataRefresh();
-
-        navigate("/list");
+        navigate('/list');
+        updateDataRefresh();
       })
-      .catch((error) => {
-        navigate("/list");
-        console.error(error);
-      });
-  };
+      .catch((err) => {
+        console.log(err.message);
+      })
+  }
+
+
+  // const [formData, setFormData] = useState({
+  //   email: "",
+  //   city: "",
+  //   area: "",
+  //   pincode: "",
+  //   address: "",
+  //   landmark: "",
+  //   latitude: "",
+  //   longitude: "",
+  //   generalInfo: generalInfo,
+  //   authorId: locationContext.userData.id,
+  // });
+
+  // const handleClear = () => {
+  //   setFormData({
+  //     email: "",
+  //     city: "",
+  //     area: "",
+  //     pincode: "",
+  //     address: "",
+  //     landmark: "",
+  //     latitude: "",
+  //     longitude: "",
+  //     generalInfo: generalInfo,
+  //     authorId: locationContext.userData.id,
+  //   });
+  // };
+
+  // const updateFormData = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const dataToSend = { ...formData, generalInfo };
+
+  //   fetch("https://real-estate-backend-g14x.onrender.com/property/api/pro/location", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(dataToSend ),
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       locationContext.updateDataRefresh();
+
+  //       navigate("/list");
+  //     })
+  //     .catch((error) => {
+  //       navigate("/list");
+  //       console.error(error);
+  //     });
+  // };
 
   return (
     <>
-      {/* <Header />
-      <Sidebar /> */}
-      <div className="location-info-row">
-        <h3>ADD NEW PROPERTY</h3>
-        <ul className="location-ul-row">
-          <li>Basic info</li>
-          <li>Property Details</li>
-          <li>General Info</li>
-          <li className="location-li">Location Info</li>
-        </ul>
-      </div>
+      <PropertyNav section={"location"}/>
       <div className="location-form-container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit()
+        }}>
           <div className="location-form-flexbox">
             <div>
               <label>
@@ -94,7 +123,7 @@ const LocationFormInfo = () => {
                   type="email"
                   name="email"
                   value={formData.email}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                   required
                 />
               </label>
@@ -103,10 +132,9 @@ const LocationFormInfo = () => {
                 <select
                   name="city"
                   value={formData.city}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                   required
                 >
-                  <option value="">Select city</option>
                   <option value="Delhi">Delhi</option>
                   <option value="Mumbai">Mumbai</option>
                   <option value="Nashik">Nashik</option>
@@ -121,7 +149,7 @@ const LocationFormInfo = () => {
                   type="text"
                   name="area"
                   value={formData.area}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                 />
               </label>
               <label>
@@ -130,7 +158,7 @@ const LocationFormInfo = () => {
                   type="number"
                   name="pincode"
                   value={formData.pincode}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                 />
               </label>
             </div>
@@ -140,7 +168,7 @@ const LocationFormInfo = () => {
                 <textarea
                   name="address"
                   value={formData.address}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                 />
               </label>
               <label>
@@ -149,7 +177,7 @@ const LocationFormInfo = () => {
                   type="text"
                   name="landmark"
                   value={formData.landmark}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                 />
               </label>
             </div>
@@ -160,7 +188,7 @@ const LocationFormInfo = () => {
                   type="text"
                   name="latitude"
                   value={formData.latitude}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                 />
               </label>
               <label>
@@ -169,12 +197,12 @@ const LocationFormInfo = () => {
                   type="text"
                   name="longitude"
                   value={formData.longitude}
-                  onChange={handleChange}
+                  onChange={updateFormData}
                 />
               </label>
             </div>
             <div>
-              <button onChange={handleClear}>Clear</button>
+              <Link to={"/generalinfo"}><button>Previous</button></Link>
             </div>
             <div>
               <button type="submit">Add Property</button>

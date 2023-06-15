@@ -86,6 +86,7 @@ table{
 thead{
     background-color:#FFFFFF;
     position: sticky;
+    font-weight: normal;
 }
 
 tr{
@@ -108,7 +109,8 @@ th, td {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    height: max-content;
     background: rgba(255,255,255,0.5);
     backdrop-filter: blur(5px);
     display: flex;
@@ -117,7 +119,7 @@ th, td {
     gap: 30px;
 }
 
-.image-container button {
+.image-container button, .data-table-conatiner button {
     border: none;
     height: 30px;
     width: 80px;
@@ -137,8 +139,20 @@ td svg {
     height: 50%;
 }
 
+.action-container {
+    /* width: 70px;
+    height: 30px; */
+    /* display: flex; */
+    height: 30px;
+    width: 50px;
+
+}
+
 .action-container svg {
     margin: 5px;
+    /* display: inline; */
+    /* height: 70%;
+    width: 30%; */
     cursor: pointer;
 }
 
@@ -152,4 +166,24 @@ tbody{
     .search-bar{
         width: 80px;
     }
+}
+
+.data-table-conatiner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 200vh;
+    height: max-content;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+
+.data-table-conatiner table {
+    width: 50%;
 }

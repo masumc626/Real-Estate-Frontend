@@ -1,24 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../context/UserContext';
-import { useNavigate } from 'react-router-dom';
-import ListGroup from 'react-bootstrap/ListGroup';
-import useFetchGet from '../../utils/useFetch';
+import { Link, useNavigate } from 'react-router-dom';
+// import ListGroup from 'react-bootstrap/ListGroup';
 import '../../styles/list.css';
 import SearchLogo from '../../utils/SearchLogo';
-import ImageComp from './PropertyData';
 import PropertyData from './PropertyData';
 
 export default function List() {
 
-  const { loginStatus } = useContext(UserContext);
+  const { loginStatus, data } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     loginStatus ? <></> : navigate('/signin')
   }, []);
 
-  const { data, updateDataRefresh } = useContext(UserContext);
-  const [search, setSearch] = useState(true);
+  const search = true;
   const [searchInput, setSearchInput] = useState("");
 
 
@@ -40,11 +37,7 @@ export default function List() {
             <SearchLogo />
           </div>
         </div>
-        <button className='add-btn white-clr'
-          onClick={() => {
-            navigate('/basicinfo')
-          }}
-        >Add Property</button>
+        <Link  to={"/basicinfo"}><button className='add-btn white-clr'>Add Property</button></Link>
       </div>
       <div className='data-container'>
         <table>

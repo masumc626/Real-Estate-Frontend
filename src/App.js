@@ -21,7 +21,7 @@ import Home from './components/Home';
 
 function App() {
   const {loginStatus} = useContext(UserContext);
-  console.log(loginStatus)
+  // console.log(loginStatus)
 
   return (
     <BrowserRouter>
