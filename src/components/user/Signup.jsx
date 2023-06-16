@@ -313,7 +313,7 @@ function SignUp() {
     setConfirmPasswordError('');
     return true;
   };
-=======
+
     loginStatus ? navigate('/list') : navigate('/signup')
   });
   
