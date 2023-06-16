@@ -314,11 +314,6 @@ function SignUp() {
     return true;
   };
 
-    loginStatus ? navigate('/list') : navigate('/signup')
-  });
-  
-
-
   const handleSignUp = () => {
     // Validate the email, password, and confirm password
     if (!validateEmail() || !validatePassword() || !validateConfirmPassword()) {
