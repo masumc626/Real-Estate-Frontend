@@ -19,6 +19,8 @@
     outline: none;
     padding: 1% 9%;
     font-size: 15px;
+    box-shadow: 0px 13px 25px rgba(0, 0, 0, 0.15);
+    /* border-radius: 500px; */
     /* outline-color: #2289FF; */
 }
 
@@ -34,8 +36,7 @@
     margin-top: 100px;
     display: flex;
     justify-content: space-between;
-    /* position: sticky;
-    top: 1; */
+    width: 100%;
 }
 
 .search-logo svg {
@@ -45,6 +46,8 @@
     background-color: #FFFFFF;
     border-radius: 0 100px 100px 0;
     cursor: pointer;
+    box-shadow: 0px 13px 25px rgba(0, 0, 0, 0.15);
+    /* border-radius: 500px; */
 }
 
 .add-btn {
@@ -52,7 +55,13 @@
     padding: 0 10px;
     border-radius: 100px;
     font-weight: 600;
-    background-color: #2289FF;
+    height: 50px;
+    /* width: 114px; */
+    margin-right: 0;
+    color: white;
+    background: #6AB4F8;
+    box-shadow: 0px 13px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 500px;
 }
 
 ::placeholder {
@@ -72,31 +81,49 @@
     color: #AAAAAA;
 }
 
-.data-container{
-   overflow-x: scroll;
-   scroll-behavior: smooth;
+.data-container {
+    overflow-x: scroll;
+    scroll-behavior: smooth;
 }
 
-table{
+table {
     width: 1155px;
     border-collapse: collapse;
     margin: 1%;
 }
 
-thead{
-    background-color:#FFFFFF;
-    position: sticky;
+thead {
+    background-color: #FFFFFF;
+    /* position: sticky; */
     font-weight: normal;
 }
 
-tr{
-   background-color:#FFFFFF;
-   border:6px solid #F5F5F5;
-   border-radius: 10px;
-   /* height: 30px; */
+tr {
+    background-color: #FFFFFF;
+    border: 6px solid #F5F5F5;
+    border-radius: 10px;
+    height: 65px;
+    /* height: 30px; */
 }
 
-th, td {
+th {
+    padding: 0%;
+    /* border-radius: 100px; */
+}
+
+td:first-child,
+th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+/* Set border-radius on the top-right and bottom-right of the last table data on the table row */
+td:last-child,
+th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+th,
+td {
     width: 300px;
     text-align: left;
     vertical-align: middle;
@@ -104,14 +131,14 @@ th, td {
     text-align: center;
 }
 
-.image-container{
-    position: fixed;
+.image-container {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     min-height: 100vh;
     height: max-content;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
@@ -119,7 +146,8 @@ th, td {
     gap: 30px;
 }
 
-.image-container button, .data-table-conatiner button {
+.image-container button,
+.data-table-conatiner button {
     border: none;
     height: 30px;
     width: 80px;
@@ -156,14 +184,14 @@ td svg {
     cursor: pointer;
 }
 
-tbody{
+tbody {
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
 
 
-@media screen and (width <= 400px) {
-    .search-bar{
+@media screen and (width <=400px) {
+    .search-bar {
         width: 80px;
     }
 }
@@ -175,7 +203,7 @@ tbody{
     width: 100vw;
     min-height: 200vh;
     height: max-content;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
