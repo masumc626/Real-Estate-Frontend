@@ -59,7 +59,7 @@ export default function PropertyData({ item }) {
                   {
                     arr.map ((itm)=> {
                       const [[key, val]] = Object.entries(itm)
-                      return <tr>
+                      return <tr key={key}>
                         <td>{key}</td>
                         <td>{val}</td>
                       </tr>

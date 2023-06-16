@@ -1,13 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../context/UserContext";
 // import Header from "../../header/header";
 // import Sidebar from "../../sidebar/sidebar";
 import "./location.css";
 import PropertyNav from "../../../PropertyNav";
+import Loading from "../../../../utils/Loading";
 const LocationFormInfo = () => {
   const { updateFormData, formData, loginStatus, SERVER_ADDRESS, updateDataRefresh, image } = useContext(UserContext);
   const navigate = useNavigate();
+  const [response, setResponse] = useState(false);
   useEffect(() => {
     loginStatus ? <></> : navigate('/signin')
   });
@@ -32,10 +34,11 @@ const LocationFormInfo = () => {
       }
     )
       .then((res) => {
+        setResponse(false);
         if (res.status === 200) {
           return res.json();
         }
-        console.log(res)
+        // console.log(res)
         throw new Error('Falied to save data Please try again')
       })
       .then((data) => {
@@ -109,10 +112,12 @@ const LocationFormInfo = () => {
 
   return (
     <>
-      <PropertyNav section={"location"}/>
+      {response ? <Loading/> : <></>}
+      <PropertyNav section={"location"} />
       <div className="location-form-container">
         <form onSubmit={(e) => {
           e.preventDefault();
+          setResponse(true);
           handleSubmit()
         }}>
           <div className="location-form-flexbox">

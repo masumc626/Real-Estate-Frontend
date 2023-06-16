@@ -37,7 +37,7 @@ export default function List() {
             <SearchLogo />
           </div>
         </div>
-        <Link  to={"/basicinfo"}><button className='add-btn white-clr'>Add Property</button></Link>
+        <Link  to={"/basicinfo"}><button className='add-btn white-clr'>+ Add Property</button></Link>
       </div>
       <div className='data-container'>
         <table>

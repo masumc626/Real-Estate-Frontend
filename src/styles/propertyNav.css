@@ -35,6 +35,14 @@
     border: none;
 } */
 
+.number-in-button {
+    background-color:#E1F9F4;
+    border-radius: 100px;
+    height: 25px;
+    width: 25px;
+    margin-right: 5px;
+}
+
 .option-active {
     color: white;
     background: #6AB4F8;
@@ -42,7 +50,28 @@
     border-radius: 500px;
 }
 
-a {
+.option-stages-nav {
     text-decoration: none;
     width: 25%;
+}
+
+.option-number-active{
+    background-color: white;
+    color: black;
+}
+
+@media screen and (width <= 520px){
+    .property-nav-option-text{
+        display: none;
+    }
+
+    .property-nav-option{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .number-in-button{
+        margin-right: 0;
+    }
 }

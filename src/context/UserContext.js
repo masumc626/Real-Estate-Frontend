@@ -36,7 +36,7 @@ const UserContextProvider = ({ children }) => {
         area: "",
         address: "",
         latitude: "",
-        city: "",
+        city: "Delhi",
         pincode: "",
         landmark: "",
         longitude: "",
