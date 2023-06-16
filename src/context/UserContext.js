@@ -26,6 +26,7 @@ const UserContextProvider = ({ children }) => {
             status: 'sold',
             daysLeft: 45,
         }
+    
     ]);
 
     const value = {

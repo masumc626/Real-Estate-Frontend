@@ -54,7 +54,8 @@
     margin-top: 60px;
     margin-bottom: 61px;
     width: 364px;
-    height: 415px;
+    height: 450px;
+    border-radius: 15px;
 
 }
 
@@ -82,7 +83,7 @@
     font-size: 8px;
     color: #000000;
     opacity: 0.6;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 400;
@@ -94,25 +95,42 @@
     color: #000000;
 
     opacity: 0.6;
+    margin-top: 20px;
 }
 
-.whiteBox input {
+.inputField11 {
     padding: 10px;
     margin-bottom: 18px;
     border: 1px solid #E2E2E2;
     border-radius: 5px;
-    width: 270px;
+    width: 290px;
 }
+
+.inputField22 {
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #E2E2E2;
+    border-radius: 5px;
+    width: 290px;
+}
+
+/* .inputField3 {
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #E2E2E2;
+    border-radius: 5px;
+    width: 290px;
+} */
 
 .whiteBox button {
     background-color: #4C57B6;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 20px;
     border-radius: 5px;
     cursor: pointer;
     width: 290px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .whiteBox button:hover {
