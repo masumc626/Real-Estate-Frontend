@@ -264,7 +264,7 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import './signup.css';
-import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import SignInPage from './SignIn';
 import BrandLogo from '../../utils/BrandLogo';
@@ -277,10 +277,11 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [redirectToSignIn, setRedirectToSignIn] = useState(false);
-  const { loginStatus } = useContext(UserContext);
+  const { loginStatus, SERVER_ADDRESS } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
+
     loginStatus ? navigate('/list') : navigate('/signup');
   }, []);
 
@@ -312,6 +313,11 @@ function SignUp() {
     setConfirmPasswordError('');
     return true;
   };
+=======
+    loginStatus ? navigate('/list') : navigate('/signup')
+  });
+  
+
 
   const handleSignUp = () => {
     // Validate the email, password, and confirm password
@@ -320,13 +326,18 @@ function SignUp() {
     }
 
     // Create an object with the user data
+
     const userData = {
       email: email,
       password: password,
       confirmPassword: confirmPassword
     };
 
-    fetch('http://localhost:8001/user/signup', {
+   
+
+    // Send a POST request to the signup endpoint
+    fetch(`${SERVER_ADDRESS}user/signup`, {
+
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

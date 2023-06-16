@@ -53,7 +53,7 @@ body{
 }
 
 .blue-clr-light2 {
-    color: #2289FF;
+    color:  #284E91;
 }
 
 .blue-clr-light {
@@ -94,3 +94,9 @@ svg{
 svg:hover{
     fill: #2289FF;
 }
+
+.txt-clr{
+    color: #7D7D7D;
+}
+
+

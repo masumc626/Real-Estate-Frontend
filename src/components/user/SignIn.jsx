@@ -8,22 +8,20 @@ import { UserContext } from '../../context/UserContext';
 function SignInPage() {
   const [email, setUserId] = useState('');
   const [password, setPassword] = useState('');
-  const { loginStatus, updateId, updateUserData, updateLoginStatus } = useContext(UserContext);
+  const { loginStatus, updateUserData, updateLoginStatus, SERVER_ADDRESS } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    loginStatus ? navigate('/list') : navigate('/signin')
+    loginStatus ? navigate('/list') : <></>;
   }, []);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     // Create the payload object with user credentials
-    const payload = {
-      email: email,
-      password: password
-    };
 
     // Make an HTTP POST request to save user data to the database
-    fetch('http://localhost:8001/user/signin', {
+
+    await fetch(`${SERVER_ADDRESS}user/signin`, {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -47,10 +45,9 @@ function SignInPage() {
     // .then(response => response.json())
     .then(data => {
       // Handle the response from the API
-      if(data.status == "success"){
+      if(data.status === "success"){
         console.log(data)
         updateUserData(data);
-        updateId(data.id);
         updateLoginStatus(true);
         navigate('/list')
         console.log('Response from server:', data);
