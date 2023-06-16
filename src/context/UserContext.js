@@ -17,6 +17,7 @@ const UserContextProvider = ({ children }) => {
     let tkn = localStorage.getItem("tkn");
     const SERVER_ADDRESS = 'https://real-estate-backend-g14x.onrender.com/'
     const [dataRefresh, setDataRefresh] = useState(true);
+
     const intialFormData = {
         length: "",
         breadth: "",
@@ -169,6 +170,7 @@ const UserContextProvider = ({ children }) => {
             :
             "648afd3b07d4d203a2bc3ab8"
     }]);
+
 
     const value = {
         loginStatus: login,

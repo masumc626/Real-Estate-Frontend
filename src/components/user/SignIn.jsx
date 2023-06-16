@@ -19,7 +19,9 @@ function SignInPage() {
     // Create the payload object with user credentials
 
     // Make an HTTP POST request to save user data to the database
+
     await fetch(`${SERVER_ADDRESS}user/signin`, {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,7 +31,18 @@ function SignInPage() {
         password : password
       })
     })
-    .then(response => response.json())
+
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else if (response.status === 401) {
+        throw new Error("User not registered. Please sign up to continue.");
+      } else {
+        throw new Error("Sign in failed.");
+      }
+    })
+
+    // .then(response => response.json())
     .then(data => {
       // Handle the response from the API
       if(data.status === "success"){
@@ -44,10 +57,15 @@ function SignInPage() {
       }
 
     })
+    // .catch(error => {
+    //   console.error('Error:', error);
+    //   // Handle the error
+    // });
     .catch(error => {
-      console.error('Error:', error);
-      // Handle the error
+      console.error('Error:', error.message);
+      alert(error.message); // Display the error message as an alert
     });
+    
 
     setUserId('');
     setPassword('');
@@ -62,14 +80,14 @@ function SignInPage() {
           <input
             type="text"
             placeholder="User ID"
-            className="inputField"
+            className="inputField11"
             value={email}
             onChange={event => setUserId(event.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
-            className="inputField2"
+            className="inputField22"
             value={password}
             onChange={event => setPassword(event.target.value)}
           />
